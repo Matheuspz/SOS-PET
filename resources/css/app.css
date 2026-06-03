@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import 'tailwindcss/preflight';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -89,4 +88,83 @@ html {
 
 .event-card:hover {
     transform: translateY(-8px);
+}
+
+/* Leaflet Fixes */
+#map {
+    height: 500px;
+    width: 100%;
+    z-index: 1;
+}
+
+.leaflet-container {
+    border-radius: 24px;
+}
+
+/* Garante que o Tailwind não quebre o Leaflet */
+.leaflet-control-attribution {
+    font-size: 10px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    #map {
+        height: 350px;
+    }
+}
+
+/* Navbar Styles */
+.nav-btn {
+    background-color: #72AE1D;
+    color: white;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-size: 1.05rem;
+}
+
+.nav-btn:hover {
+    background-color: #7acc44;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(114, 174, 29, 0.3);
+}
+
+/* Mobile adjustments */
+#mobile-menu .nav-btn {
+    padding: 16px;
+    border-radius: 12px;
+}
+
+/* Hero Section - Melhor centralização */
+.hero-section {
+    height: 520px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(to bottom, #59e0d4, #dceb45);
+    color: white;
+    position: relative;
+}
+
+.hero-section .max-w-5xl {
+    z-index: 2;
+}
+
+.hero-section h1 {
+    font-size: 3.2rem;
+    line-height: 1.05;
+    text-align: center;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        height: 420px;
+        padding-top: 60px; /* espaço para navbar fixa */
+    }
+
+    .hero-section h1 {
+        font-size: 2.4rem;
+    }
 }
