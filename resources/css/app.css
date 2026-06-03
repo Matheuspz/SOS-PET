@@ -168,3 +168,18 @@ html {
         font-size: 2.4rem;
     }
 }
+
+/* Mapa */
+#map {
+    height: 650px;        /* ← Mude aqui o valor */
+    width: 100%;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    #map {
+        height: 420px;    /* Altura menor em mobile */
+    }
+}
