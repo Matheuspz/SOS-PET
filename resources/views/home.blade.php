@@ -36,14 +36,14 @@
             </div>
 
             <!-- MAPA COM ALTURA DEFINIDA -->
-            <div id="map" class="rounded-3xl shadow-xl" style="height: 500px; width: 100%;"></div>
+            <div id="map" class="rounded-3xl shadow-xl"></div>
         </div>
     </section>
 
     <!-- Tips Section -->
     <section class="tips-section py-20">
         <div class="container mx-auto px-4">
-            <h2 class="text-center text-4xl font-bold mb-10 text-white">Dicas de Cuidado</h2>
+            <h2 class="text-center text-4xl font-bold mb-10 text-black">Dicas de Cuidado</h2>
 
             <div class="flex justify-center mb-8">
                 <div class="w-full max-w-xs">
