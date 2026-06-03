@@ -1,40 +1,49 @@
-<!-- Header de navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-    <div class="container mx-auto px-4">
-        <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ route('home') }}">
+<!-- Navbar -->
+<nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+        <!-- Logo -->
+        <a href="{{ route('home') }}" class="flex items-center gap-3">
             <img src="{{ asset('img/logo.jfif') }}"
                  alt="Logo SOS PET"
-                 width="70"
-                 height="64"
-                 class="d-inline-block align-text-center me-3">
-            <span class="fs-4">SOS PET - Patinhas Carentes</span>
+                 width="60"
+                 height="60"
+                 class="rounded-full">
+            <div>
+                <span class="text-2xl font-bold text-gray-800">SOS PET</span>
+                <p class="text-sm text-gray-600 -mt-1">Patinhas Carentes</p>
+            </div>
         </a>
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#menu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <!-- Menu Desktop -->
+        <div class="hidden md:flex items-center gap-4">
+            <a href="#locais"
+               class="nav-btn">
+                Locais
+            </a>
+            <a href="#sobre"
+               class="nav-btn">
+                Sobre
+            </a>
+            <a href="#contato"
+               class="nav-btn">
+                Contato
+            </a>
+        </div>
 
-        <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav ms-auto gap-3">
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold px-4 py-2 rounded" href="#locais">
-                        Locais
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold px-4 py-2 rounded" href="#sobre">
-                        Sobre
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold px-4 py-2 rounded" href="#contato">
-                        Contato
-                    </a>
-                </li>
-            </ul>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-button"
+                class="md:hidden text-3xl text-gray-700">
+            <i class="bi bi-list"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t py-4">
+        <div class="flex flex-col px-6 gap-3">
+            <a href="#locais" class="nav-btn text-center py-3">Locais</a>
+            <a href="#sobre" class="nav-btn text-center py-3">Sobre</a>
+            <a href="#contato" class="nav-btn text-center py-3">Contato</a>
         </div>
     </div>
 </nav>

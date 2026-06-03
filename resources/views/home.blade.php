@@ -7,9 +7,11 @@
 
     <!-- Hero Section -->
     <section class="hero-section">
-        <div class="container text-center">
-            <h1 class="text-5xl md:text-6xl font-black mb-6">LOREM IPSUM DOLOR SIT AMET</h1>
-            <p class="lead text-xl md:text-2xl font-medium max-w-2xl mx-auto">
+        <div class="max-w-5xl mx-auto px-6 text-center flex flex-col items-center justify-center h-full">
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
+                LOREM IPSUM DOLOR SIT AMET
+            </h1>
+            <p class="lead text-xl md:text-2xl font-medium max-w-2xl mx-auto text-balance">
                 Lorem ipsum dolor sit amet,<br>
                 consectetur adipiscing elit.<br>
                 Nulla sagittis mi vitae vulputate.
@@ -33,7 +35,8 @@
                 </div>
             </div>
 
-            <div id="map" class="rounded-3xl shadow-xl"></div>
+            <!-- MAPA COM ALTURA DEFINIDA -->
+            <div id="map" class="rounded-3xl shadow-xl" style="height: 500px; width: 100%;"></div>
         </div>
     </section>
 
@@ -147,16 +150,51 @@
 @section('scripts')
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
+
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+
+                // Troca ícone entre hambúrguer e X
+                const icon = mobileBtn.querySelector('i');
+                if (icon.classList.contains('bi-list')) {
+                    icon.classList.remove('bi-list');
+                    icon.classList.add('bi-x-lg');
+                } else {
+                    icon.classList.add('bi-list');
+                    icon.classList.remove('bi-x-lg');
+                }
+            });
+        }
+
         /* ==================== LEAFLET MAP ==================== */
         let map;
         let markers = [];
 
         function initMap() {
-            map = L.map('map').setView([-26.3044, -48.8487], 12); // Coordenadas do protótipo original
+            // Verifica se o mapa já existe para evitar erro
+            if (map) {
+                map.remove();
+            }
+
+            map = L.map('map', {
+                zoomControl: true,
+                scrollWheelZoom: true
+            }).setView([-26.3044, -48.8487], 12);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
+                attribution: '&copy; OpenStreetMap contributors',
+                maxZoom: 19,
             }).addTo(map);
+
+            // Força redesenho após carregamento
+            setTimeout(() => {
+                map.invalidateSize();
+            }, 300);
 
             loadMarkers();
         }
