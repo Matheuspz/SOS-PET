@@ -59,7 +59,14 @@ class MarcadoresController extends Controller
      */
     public function update(Request $request, Marcador $marcadores)
     {
-        //
+        $validated = $request->validate([
+            'titulo' => 'required|string|max:100',
+            'latitude' => 'required|numeric:|decimal:10,8',
+            'longitude' => 'required|numeric:|decimal:11,8',
+            'tipo' => 'required|in:doacao,hospital,evento',
+        ]);
+
+        $marcadores->update($validated);
     }
 
     /**
@@ -67,6 +74,6 @@ class MarcadoresController extends Controller
      */
     public function destroy(Marcador $marcadores)
     {
-        //
+        $marcadores->delete();
     }
 }
