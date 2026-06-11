@@ -14,6 +14,11 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function events()
+    {
+        return view('events');
+    }
+
     /**
      * Get all events via API
      * TODO: Connect to database when backend is ready

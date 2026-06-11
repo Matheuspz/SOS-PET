@@ -5,7 +5,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
+Route::get('/events', [HomeController::class, 'events'])
+    ->name('events');
+
 
 
 //// Admin Routes
@@ -33,6 +37,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 //    Route::delete('/admin/markers/{id}', [AdminDashboardController::class, 'destroyMarker'])->name('admin.markers.destroy');
 //});
 //
+
+
 //// API Routes for fetching data (public access)
 Route::get('/api/events', [HomeController::class, 'getEvents']);
 Route::get('/api/tips', [HomeController::class, 'getTips']);
