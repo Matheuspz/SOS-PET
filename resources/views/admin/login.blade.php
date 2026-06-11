@@ -3,8 +3,8 @@
 @section('title', 'Admin Login - SOS PET')
 
 @section('content')
-    <div class="min-h-screen bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center px-4">
-        <div class="w-full max-w-md">
+    <div class="min-h-screen flex items-center justify-center px-4">
+        <div class="w-full max-w-md border border-green-600">
             <!-- Login Card -->
             <div class="bg-white rounded-lg shadow-2xl p-8">
                 <!-- Logo -->
@@ -39,7 +39,7 @@
                 @endif
 
                 <!-- Login Form -->
-                <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-4">
+                <form method="POST" action="{{ route('admin.login') }}" class="space-y-4">
                     @csrf
 
                     <!-- Email Field -->
@@ -88,16 +88,6 @@
                     </button>
                 </form>
 
-                <!-- Info Message -->
-                <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
-                    <p class="text-blue-700 text-xs font-semibold">
-                        <i class="bi bi-info-circle"></i> Página de administração
-                    </p>
-                    <p class="text-blue-600 text-xs mt-1">
-                        TODO: Substituir por autenticação real do banco de dados
-                    </p>
-                </div>
-
                 <!-- Back Link -->
                 <div class="text-center mt-6">
                     <a href="{{ route('home') }}" class="text-green-600 hover:text-green-700 font-semibold text-sm">
@@ -105,11 +95,6 @@
                     </a>
                 </div>
             </div>
-
-            <!-- Footer Note -->
-            <p class="text-white text-center text-xs mt-4">
-                SOS PET - PATINHAS CARENTES © 2026
-            </p>
         </div>
     </div>
 @endsection
