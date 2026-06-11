@@ -34,11 +34,7 @@ class DicasController extends Controller
             'tipo' => 'required',
         ]);
 
-        Dica::create([
-            'titulo' => $validated['titulo'],
-            'descricao' => $validated['descricao'],
-            'tipo' => $validated['tipo'],
-        ]);
+        $dicas = Dica::create($validated);
     }
 
     /**
