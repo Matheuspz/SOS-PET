@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller
@@ -12,61 +13,61 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        // Placeholder data - replace with database queries
-        $events = [
-            [
-                'id' => 1,
-                'title' => 'Evento de adoção',
-                'date' => '21/05/2026',
-                'description' => 'Evento de adoção de animais.',
-            ],
-            [
-                'id' => 2,
-                'title' => 'Feira pet beneficente',
-                'date' => '21/06/2026',
-                'description' => 'Feira pet beneficente com diversos expositores.',
-            ],
-        ];
+//        // Placeholder data - replace with database queries
+//        $events = [
+//            [
+//                'id' => 1,
+//                'title' => 'Evento de adoção',
+//                'date' => '21/05/2026',
+//                'description' => 'Evento de adoção de animais.',
+//            ],
+//            [
+//                'id' => 2,
+//                'title' => 'Feira pet beneficente',
+//                'date' => '21/06/2026',
+//                'description' => 'Feira pet beneficente com diversos expositores.',
+//            ],
+//        ];
+//
+//        $tips = [
+//            [
+//                'id' => 1,
+//                'title' => 'Vacinação Regular',
+//                'description' => 'Manter seu cachorro vacinado é fundamental para sua saúde.',
+//                'type' => 'dog',
+//            ],
+//            [
+//                'id' => 2,
+//                'title' => 'Higiene Bucal',
+//                'description' => 'Escove os dentes do seu cachorro regularmente.',
+//                'type' => 'dog',
+//            ],
+//        ];
+//
+//        $markers = [
+//            [
+//                'id' => 1,
+//                'title' => 'Doação - Centro de Adoção',
+//                'latitude' => -23.5505,
+//                'longitude' => -46.6333,
+//                'type' => 'donation',
+//                'description' => 'Centro de adoção de animais',
+//            ],
+//            [
+//                'id' => 2,
+//                'title' => 'Hospital - Clínica Veterinária ABC',
+//                'latitude' => -23.5605,
+//                'longitude' => -46.6233,
+//                'type' => 'hospital',
+//                'description' => 'Clínica veterinária com atendimento 24h',
+//            ],
+//        ];
 
-        $tips = [
-            [
-                'id' => 1,
-                'title' => 'Vacinação Regular',
-                'description' => 'Manter seu cachorro vacinado é fundamental para sua saúde.',
-                'type' => 'dog',
-            ],
-            [
-                'id' => 2,
-                'title' => 'Higiene Bucal',
-                'description' => 'Escove os dentes do seu cachorro regularmente.',
-                'type' => 'dog',
-            ],
-        ];
-
-        $markers = [
-            [
-                'id' => 1,
-                'title' => 'Doação - Centro de Adoção',
-                'latitude' => -23.5505,
-                'longitude' => -46.6333,
-                'type' => 'donation',
-                'description' => 'Centro de adoção de animais',
-            ],
-            [
-                'id' => 2,
-                'title' => 'Hospital - Clínica Veterinária ABC',
-                'latitude' => -23.5605,
-                'longitude' => -46.6233,
-                'type' => 'hospital',
-                'description' => 'Clínica veterinária com atendimento 24h',
-            ],
-        ];
-
-        return view('admin.dashboard', [
+        return view('admin.dashboard'/*, [
             'events' => $events,
             'tips' => $tips,
             'markers' => $markers,
-        ]);
+        ]*/);
     }
 
     /**
