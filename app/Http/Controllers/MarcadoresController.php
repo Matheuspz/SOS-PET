@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Marcadores;
+use App\Models\Marcador;
 use Illuminate\Http\Request;
 
 class MarcadoresController extends Controller
@@ -28,13 +28,20 @@ class MarcadoresController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'titulo' => 'required|string|max:100',
+            'latitude' => 'required|numeric:|decimal:10,8',
+            'longitude' => 'required|numeric:|decimal:11,8',
+            'tipo' => 'required|in:doacao,hospital,evento',
+        ]);
+
+        $marcador = Marcador::create($validated);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Marcadores $marcadores)
+    public function show(Marcador $marcadores)
     {
         //
     }
@@ -42,7 +49,7 @@ class MarcadoresController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Marcadores $marcadores)
+    public function edit(Marcador $marcadores)
     {
         //
     }
@@ -50,7 +57,7 @@ class MarcadoresController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Marcadores $marcadores)
+    public function update(Request $request, Marcador $marcadores)
     {
         //
     }
@@ -58,7 +65,7 @@ class MarcadoresController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Marcadores $marcadores)
+    public function destroy(Marcador $marcadores)
     {
         //
     }
