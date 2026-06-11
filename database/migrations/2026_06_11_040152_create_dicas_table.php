@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('dicas', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo',100)->nullable();
-            $table->string('descricao',255)->nullable();
-            $table->enum('tipo', ['cao','gato'])->default('cao')->nullable();
+            $table->string('titulo',100);
+            $table->string('descricao',255);
+            $table->enum('tipo', ['cao','gato'])->default('cao');
             $table->timestamps();
         });
     }
