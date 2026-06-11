@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminDashboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+
 //// Admin Routes
 //Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
 //Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');

@@ -7,7 +7,7 @@
 
     <!-- Hero Section -->
     <section class="hero-section">
-        <div class="max-w-5xl mx-auto px-6 text-center flex flex-col items-center justify-center h-full">
+        <div class="max-w-5xl mx-auto px-6 text-center flex flex-col items-center justify-center h-full text-black">
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
                 LOREM IPSUM DOLOR SIT AMET
             </h1>
@@ -20,23 +20,40 @@
     </section>
 
     <!-- Map Section -->
-    <section id="locais" class="py-5 bg-gray-100">
+    <section id="locais" class="py-12 bg-gray-100 pt-24 md:pt-28">  <!-- Aumentado -->
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+            <!-- Título -->
+            <div class="flex justify-between items-center mb-8">
                 <h2 class="text-4xl font-bold">Locais</h2>
+            </div>
 
-                <div class="legend-box bg-white p-6 rounded-2xl shadow-sm">
-                    <h5 class="font-bold mb-4 text-lg">Legenda</h5>
-                    <div class="space-y-2">
-                        <div>🟠 Doação</div>
-                        <div>🔵 Hospital Veterinário</div>
-                        <div>🔴 Evento</div>
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Mapa -->
+                <div class="flex-1">
+                    <div id="map" class="rounded-3xl shadow-xl w-full"></div>
+                </div>
+
+                <!-- Legenda -->
+                <div class="w-full lg:w-80 flex-shrink-0">
+                    <div class="legend-box bg-white p-8 rounded-3xl shadow-sm sticky top-8">
+                        <h5 class="font-bold mb-6 text-2xl text-gray-800">Legenda</h5>
+                        <div class="space-y-5 text-lg">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🟠</span>
+                                <span>Doação</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🔵</span>
+                                <span>Hospital Veterinário</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🔴</span>
+                                <span>Evento</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- MAPA COM ALTURA DEFINIDA -->
-            <div id="map" class="rounded-3xl shadow-xl"></div>
         </div>
     </section>
 
@@ -54,19 +71,39 @@
                 </div>
             </div>
 
-            <div class="flex justify-center items-center gap-6">
-                <button onclick="previousTip()" class="btn-arrow text-6xl text-gray-700 hover:text-[#72AE1D] transition-transform hover:scale-110">
-                    <i class="bi bi-arrow-left-circle-fill"></i>
-                </button>
+            <div class="flex flex-col items-center">
+                <!-- Desktop + Tablet: setas ao lado -->
+                <div class="hidden md:flex justify-center items-center gap-6 w-full max-w-[800px]">
+                    <button onclick="previousTip()" class="btn-arrow text-5xl text-gray-700 hover:text-[#72AE1D]">
+                        <i class="bi bi-arrow-left-circle-fill"></i>
+                    </button>
 
-                <div class="tip-card">
-                    <h4 id="tipTitle" class="text-[#72AE1D] text-3xl font-bold mb-4">Carregando...</h4>
-                    <p id="tipText" class="text-gray-700 text-lg leading-relaxed">Dicas disponíveis para o tipo de animal selecionado.</p>
+                    <div class="tip-card flex-1">
+                        <h4 id="tipTitle" class="text-[#72AE1D] text-3xl font-bold mb-4">Carregando...</h4>
+                        <p id="tipText" class="text-gray-700 text-lg leading-relaxed">Dicas disponíveis para o tipo de animal selecionado.</p>
+                    </div>
+
+                    <button onclick="nextTip()" class="btn-arrow text-5xl text-gray-700 hover:text-[#72AE1D]">
+                        <i class="bi bi-arrow-right-circle-fill"></i>
+                    </button>
                 </div>
 
-                <button onclick="nextTip()" class="btn-arrow text-6xl text-gray-700 hover:text-[#72AE1D] transition-transform hover:scale-110">
-                    <i class="bi bi-arrow-right-circle-fill"></i>
-                </button>
+                <!-- Mobile: Card centralizado + setas embaixo -->
+                <div class="md:hidden w-full max-w-md">
+                    <div class="tip-card">
+                        <h4 id="tipTitle" class="text-[#72AE1D] text-3xl font-bold mb-4">Carregando...</h4>
+                        <p id="tipText" class="text-gray-700 text-lg leading-relaxed">Dicas disponíveis para o tipo de animal selecionado.</p>
+                    </div>
+
+                    <div class="flex justify-center gap-8 mt-6">
+                        <button onclick="previousTip()" class="btn-arrow text-4xl text-gray-700 hover:text-[#72AE1D]">
+                            <i class="bi bi-arrow-left-circle-fill"></i>
+                        </button>
+                        <button onclick="nextTip()" class="btn-arrow text-4xl text-gray-700 hover:text-[#72AE1D]">
+                            <i class="bi bi-arrow-right-circle-fill"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -76,33 +113,68 @@
         <div class="container mx-auto px-4">
             <h2 class="text-center text-4xl font-bold mb-12">Eventos:</h2>
 
-            <div id="eventsContainer" class="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide">
+            <!-- Desktop: Scroll horizontal -->
+            <div id="eventsContainer" class="hidden md:flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide">
                 <!-- Populado via JS -->
             </div>
 
-            <div class="flex justify-center gap-6 mt-8">
-                <button onclick="scrollEvents('left')" class="btn-arrow text-5xl text-gray-700 hover:text-[#72AE1D]">
-                    <i class="bi bi-arrow-left-circle-fill"></i>
-                </button>
-                <button onclick="scrollEvents('right')" class="btn-arrow text-5xl text-gray-700 hover:text-[#72AE1D]">
-                    <i class="bi bi-arrow-right-circle-fill"></i>
-                </button>
+            <!-- Mobile: Um card por vez + setas embaixo -->
+            <div id="eventsMobileWrapper" class="md:hidden">
+                <div id="eventsContainerMobile" class="tip-card mx-auto max-w-md">
+                    <!-- Populado via JS -->
+                </div>
+
+                <!-- Setas Mobile -->
+                <div class="flex justify-center gap-8 mt-6">
+                    <button onclick="previousEvent()" class="btn-arrow text-4xl text-gray-700 hover:text-[#72AE1D]">
+                        <i class="bi bi-arrow-left-circle-fill"></i>
+                    </button>
+                    <button onclick="nextEvent()" class="btn-arrow text-4xl text-gray-700 hover:text-[#72AE1D]">
+                        <i class="bi bi-arrow-right-circle-fill"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contato" class="py-20">
+    <section id="contato" class="py-20 bg-gradient-to-b from-[#59e0d4] to-[#dceb45]">
         <div class="container mx-auto px-4">
-            <div class="contact-box mx-auto max-w-2xl">
-                <h2 class="text-center text-3xl font-bold mb-8 text-white">Formulário para contato</h2>
-
-                <form id="contactForm" class="space-y-5">
+            <div class="contact-box mx-auto max-w-2xl p-10 md:p-12">
+                <h2 class="text-center text-4xl font-bold mb-10 text-white drop-shadow-sm">
+                    Formulário para contato
+                </h2>
+                <form id="contactForm" class="space-y-6">
                     @csrf
-                    <input type="text" name="name" class="form-control" placeholder="Nome" required>
-                    <input type="email" name="email" class="form-control" placeholder="E-mail" required>
-                    <textarea name="message" rows="6" class="form-control" placeholder="Mensagem" required></textarea>
-                    <button type="submit" class="btn w-full py-4 text-lg font-bold">ENVIAR</button>
+                    <div>
+                        <input
+                            type="text"
+                            name="name"
+                            class="form-input w-full px-6 py-4 rounded-2xl text-lg focus:outline-none focus:ring-4 focus:ring-white/50"
+                            placeholder="Nome"
+                            required>
+                    </div>
+                    <div>
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-input w-full px-6 py-4 rounded-2xl text-lg focus:outline-none focus:ring-4 focus:ring-white/50"
+                            placeholder="E-mail"
+                            required>
+                    </div>
+                    <div>
+                    <textarea
+                        name="message"
+                        rows="6"
+                        class="form-input w-full px-6 py-4 rounded-3xl text-lg resize-y focus:outline-none focus:ring-4 focus:ring-white/50"
+                        placeholder="Mensagem"
+                        required></textarea>
+                    </div>
+                    <button
+                        type="submit"
+                        class="w-full bg-[#1e8a2e] hover:bg-[#2aa13a] text-white font-bold py-5 text-xl rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl">
+                        ENVIAR
+                    </button>
                 </form>
             </div>
         </div>
@@ -118,10 +190,10 @@
                 <div>
                     <h3 class="text-4xl font-bold text-[#72AE1D] mb-6">Sobre nós</h3>
                     <p class="text-lg leading-relaxed text-gray-700 mb-6">
-                        Somos uma ONG dedicada ao auxílio de animais em situação de vulnerabilidade.
-                    </p>
-                    <p class="text-lg leading-relaxed text-gray-700">
-                        Nosso objetivo é conectar pessoas dispostas a ajudar com animais que precisam de apoio, seja através de adoção, doações ou participação em nossos eventos.
+                        O Grupo Patinhas Carentes foi formado em 2008, quando universitárias começaram a se engajar na causa animal.
+                        Iniciaram o projeto ajudando animais por intermédio de outros grupos de proteção e surgiu a necessidade de atender
+                        os animais que se encontravam em situação de risco e nas ruas.
+                        Fez-se necessário a criação da sede para abrigar esses animais que não tinham para onde ir.
                     </p>
                 </div>
             </div>
@@ -129,205 +201,11 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 border-t">
-        <div class="container mx-auto px-4 text-center">
-            <a href="{{ route('home') }}" class="inline-flex items-center gap-3 text-2xl font-bold mb-6">
-                <img src="{{ asset('img/logo.jfif') }}" alt="Logo" width="50" height="50">
-                SOS PET - Patinhas Carentes
-            </a>
+    @include('layouts.footer')
 
-            <div class="flex justify-center gap-8 text-3xl mb-6">
-                <i class="bi bi-instagram cursor-pointer hover:text-[#72AE1D] transition-colors"></i>
-                <i class="bi bi-youtube cursor-pointer hover:text-[#72AE1D] transition-colors"></i>
-                <i class="bi bi-linkedin cursor-pointer hover:text-[#72AE1D] transition-colors"></i>
-            </div>
-
-            <small class="text-gray-500">SOS PET - PATINHAS CARENTES © 2026</small>
-        </div>
-    </footer>
 @endsection
 
 @section('scripts')
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-
-        // Mobile Menu Toggle
-        const mobileBtn = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (mobileBtn && mobileMenu) {
-            mobileBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-
-                // Troca ícone entre hambúrguer e X
-                const icon = mobileBtn.querySelector('i');
-                if (icon.classList.contains('bi-list')) {
-                    icon.classList.remove('bi-list');
-                    icon.classList.add('bi-x-lg');
-                } else {
-                    icon.classList.add('bi-list');
-                    icon.classList.remove('bi-x-lg');
-                }
-            });
-        }
-
-        /* ==================== LEAFLET MAP ==================== */
-        let map;
-        let markers = [];
-
-        function initMap() {
-            // Verifica se o mapa já existe para evitar erro
-            if (map) {
-                map.remove();
-            }
-
-            map = L.map('map', {
-                zoomControl: true,
-                scrollWheelZoom: true
-            }).setView([-26.3044, -48.8487], 12);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors',
-                maxZoom: 19,
-            }).addTo(map);
-
-            // Força redesenho após carregamento
-            setTimeout(() => {
-                map.invalidateSize();
-            }, 300);
-
-            loadMarkers();
-        }
-
-        function loadMarkers() {
-            fetch('/api/markers')
-                .then(response => response.json())
-                .then(data => {
-                    data.forEach(marker => {
-                        addMarker(marker);
-                    });
-                })
-                .catch(err => console.error('Erro ao carregar marcadores:', err));
-        }
-
-        function addMarker(markerData) {
-            const icons = {
-                donation: '🟠',
-                hospital: '🔵',
-                event: '🔴'
-            };
-
-            const customIcon = L.divIcon({
-                html: `<div style="font-size: 2.5rem;">${icons[markerData.type] || '🔵'}</div>`,
-                iconSize: [50, 50],
-                className: 'custom-marker'
-            });
-
-            const marker = L.marker([markerData.latitude, markerData.longitude], { icon: customIcon })
-                .addTo(map)
-                .bindPopup(`
-            <div class="text-center">
-                <strong>${markerData.title}</strong><br>
-                <small class="text-muted">${markerData.description}</small>
-            </div>
-        `);
-
-            markers.push(marker);
-        }
-
-        /* ==================== TIPS ==================== */
-        let allTips = [];
-        let filteredTips = [];
-        let currentTipIndex = 0;
-
-        function loadTips() {
-            fetch('/api/tips')
-                .then(res => res.json())
-                .then(data => {
-                    allTips = data;
-                    filterTips('dog');
-                })
-                .catch(err => console.error(err));
-        }
-
-        function filterTips(type) {
-            filteredTips = allTips.filter(tip => tip.type === type);
-            currentTipIndex = 0;
-            displayCurrentTip();
-        }
-
-        function displayCurrentTip() {
-            if (filteredTips.length === 0) return;
-
-            document.getElementById('tipTitle').textContent = filteredTips[currentTipIndex].title;
-            document.getElementById('tipText').textContent = filteredTips[currentTipIndex].description;
-        }
-
-        function nextTip() {
-            if (filteredTips.length === 0) return;
-            currentTipIndex = (currentTipIndex + 1) % filteredTips.length;
-            displayCurrentTip();
-        }
-
-        function previousTip() {
-            if (filteredTips.length === 0) return;
-            currentTipIndex = (currentTipIndex - 1 + filteredTips.length) % filteredTips.length;
-            displayCurrentTip();
-        }
-
-        /* ==================== EVENTS ==================== */
-        function loadEvents() {
-            fetch('/api/events')
-                .then(res => res.json())
-                .then(events => {
-                    const container = document.getElementById('eventsContainer');
-                    container.innerHTML = '';
-
-                    events.forEach(event => {
-                        const card = document.createElement('div');
-                        card.className = 'event-card';
-                        card.innerHTML = `
-                    <img src="${event.image}" alt="${event.title}" class="img-fluid rounded mb-3" style="height: 180px; object-fit: cover;">
-                    <h6 class="fw-bold">${event.date}</h6>
-                    <button class="btn btn-success btn-sm mt-2 mb-3" onclick="markOnMap(${event.latitude}, ${event.longitude})">
-                        Marcar no mapa
-                    </button>
-                    <p class="mb-0">${event.description}</p>
-                `;
-                        container.appendChild(card);
-                    });
-                })
-                .catch(err => console.error('Erro ao carregar eventos:', err));
-        }
-
-        function scrollEvents(direction) {
-            const container = document.getElementById('eventsContainer');
-            const scrollAmount = 380;
-            container.scrollBy({
-                left: direction === 'left' ? -scrollAmount : scrollAmount,
-                behavior: 'smooth'
-            });
-        }
-
-        function markOnMap(lat, lng) {
-            if (map) {
-                map.flyTo([lat, lng], 15, { duration: 2 });
-            }
-        }
-
-        /* ==================== INIT ==================== */
-        document.addEventListener('DOMContentLoaded', function() {
-            initMap();
-            loadTips();
-            loadEvents();
-
-            // Pet filter
-            const petFilter = document.getElementById('petFilter');
-            if (petFilter) {
-                petFilter.addEventListener('change', function() {
-                    filterTips(this.value);
-                });
-            }
-        });
-    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
 @endsection

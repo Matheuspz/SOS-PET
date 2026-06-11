@@ -81,41 +81,4 @@ class HomeController extends Controller
 
         return response()->json($tips);
     }
-
-    /**
-     * Get all map markers via API
-     * TODO: Connect to database when backend is ready
-     */
-    public function getMarkers()
-    {
-        // Placeholder for backend integration
-        $markers = [
-            [
-                'id' => 1,
-                'title' => 'Doação - Centro de Adoção',
-                'latitude' => -23.5505,
-                'longitude' => -46.6333,
-                'type' => 'donation', // donation, hospital, event
-                'description' => 'Centro de adoção de animais',
-            ],
-            [
-                'id' => 2,
-                'title' => 'Hospital - Clínica Veterinária ABC',
-                'latitude' => -23.5605,
-                'longitude' => -46.6233,
-                'type' => 'hospital',
-                'description' => 'Clínica veterinária com atendimento 24h',
-            ],
-            [
-                'id' => 3,
-                'title' => 'Evento - Feira Pet',
-                'latitude' => -23.5405,
-                'longitude' => -46.6433,
-                'type' => 'event',
-                'description' => 'Feira pet beneficente',
-            ],
-        ];
-
-        return response()->json($markers);
-    }
 }
