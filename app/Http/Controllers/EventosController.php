@@ -35,12 +35,7 @@ class EventosController extends Controller
             'descricao' => 'required',
         ]);
 
-        Evento::create([
-            'titulo' => $validated['titulo'],
-            'data' => $validated['data'],
-            'hora' => $validated['hora'],
-            'descricao' => $validated['descricao'],
-        ]);
+        $eventos = Evento::create($validated);
     }
 
     /**
