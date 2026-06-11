@@ -7,10 +7,8 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])
-    ->middleware('guest')
     ->name('home');
 Route::get('/events', [HomeController::class, 'events'])
-    ->middleware('guest')
     ->name('events');
 
 
