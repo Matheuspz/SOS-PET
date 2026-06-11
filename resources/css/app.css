@@ -126,7 +126,7 @@ html {
         flex-shrink: 0;
         scroll-snap-align: start;
     }
-    /* Melhorias para Eventos no Mobile */
+    /* Melhorias para Evento no Mobile */
     #eventsContainerMobile .event-card {
         width: 100%;
     }

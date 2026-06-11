@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Eventos - SOS PET')
+@section('title', 'Evento - SOS PET')
 
 @section('content')
     @include('layouts.navbar')

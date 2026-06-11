@@ -52,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Botão Próximos Eventos -->
+            <!-- Botão Próximos Evento -->
             <div class="py-16 text-center" >
                 <a href="{{ route('events') }}"
                    class="inline-flex items-center gap-4 bg-[#72AE1D] hover:bg-[#7acc44] text-white text-2xl font-bold px-12 py-6 rounded-3xl transition-all hover:scale-105 shadow-lg">
