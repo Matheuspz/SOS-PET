@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('eventos', function (Blueprint $table) {
+        Schema::create('marcadores', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo', 100);
-            $table->date('data');
-            $table->time('hora');
-            $table->longText('descricao');
+            $table->string('titulo');
+            $table->decimal('latitude', 10, 8);
+            $table->decimal('longitude', 11, 8);
+            $table->enum('tipo', ['doacao', 'hospital', 'evento'])->default('evento');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('eventos');
+        Schema::dropIfExists('marcadores');
     }
 };
