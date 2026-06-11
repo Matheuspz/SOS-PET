@@ -72,18 +72,13 @@ let filteredTips = [];
 let currentTipIndex = 0;
 
 function loadTips() {
-    // Dados de fallback (para testes enquanto a API não existe)
-    allTips = [
-        { type: "dog", title: "Passeio Diário", description: "Leve seu cachorro para passear diariamente. Isso ajuda na saúde física e mental." },
-        { type: "dog", title: "Vacinação", description: "Mantenha a carteira de vacinação atualizada. Consulte um veterinário regularmente." },
-        { type: "dog", title: "Alimentação", description: "Ofereça ração de qualidade adequada à idade e porte do seu cão." },
-
-        { type: "cat", title: "Caixa de Areia", description: "Mantenha a caixa de areia sempre limpa. Gatos são muito higiênicos." },
-        { type: "cat", title: "Arranhador", description: "Disponibilize arranhadores adequados para evitar que ele arranhe móveis." },
-        { type: "cat", title: "Brinquedos", description: "Ofereça brinquedos interativos para estimular o instinto de caça." }
-    ];
-
-    filterTips('dog'); //
+    fetch('/api/tips')
+        .then(res => res.json())
+        .then(data => {
+            allTips = data;
+            filterTips('dog');
+        })
+        .catch(err => console.error(err));
 }
 
 function filterTips(type) {

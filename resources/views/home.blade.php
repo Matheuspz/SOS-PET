@@ -9,12 +9,10 @@
     <section class="hero-section">
         <div class="max-w-5xl mx-auto px-6 text-center flex flex-col items-center justify-center h-full text-black">
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
-                LOREM IPSUM DOLOR SIT AMET
+                💚 Toda vida merece respeito
             </h1>
             <p class="lead text-xl md:text-2xl font-medium max-w-2xl mx-auto text-balance">
-                Lorem ipsum dolor sit amet,<br>
-                consectetur adipiscing elit.<br>
-                Nulla sagittis mi vitae vulputate.
+                ONG de proteção animal | Resgate, cuidado e adoção
             </p>
         </div>
     </section>
@@ -53,6 +51,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- Botão Próximos Eventos -->
+            <div class="py-16 text-center" >
+                <a href="{{ route('events') }}"
+                   class="inline-flex items-center gap-4 bg-[#72AE1D] hover:bg-[#7acc44] text-white text-2xl font-bold px-12 py-6 rounded-3xl transition-all hover:scale-105 shadow-lg">
+                    <span>Próximos Eventos</span>
+                    <i class="bi bi-arrow-right-circle-fill text-4xl"></i>
+                </a>
             </div>
         </div>
     </section>
@@ -103,35 +109,6 @@
                             <i class="bi bi-arrow-right-circle-fill"></i>
                         </button>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Events Section -->
-    <section id="eventCarousel" class="py-20 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-center text-4xl font-bold mb-12">Eventos:</h2>
-
-            <!-- Desktop: Scroll horizontal -->
-            <div id="eventsContainer" class="hidden md:flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide">
-                <!-- Populado via JS -->
-            </div>
-
-            <!-- Mobile: Um card por vez + setas embaixo -->
-            <div id="eventsMobileWrapper" class="md:hidden">
-                <div id="eventsContainerMobile" class="tip-card mx-auto max-w-md">
-                    <!-- Populado via JS -->
-                </div>
-
-                <!-- Setas Mobile -->
-                <div class="flex justify-center gap-8 mt-6">
-                    <button onclick="previousEvent()" class="btn-arrow text-4xl text-gray-700 hover:text-[#72AE1D]">
-                        <i class="bi bi-arrow-left-circle-fill"></i>
-                    </button>
-                    <button onclick="nextEvent()" class="btn-arrow text-4xl text-gray-700 hover:text-[#72AE1D]">
-                        <i class="bi bi-arrow-right-circle-fill"></i>
-                    </button>
                 </div>
             </div>
         </div>

@@ -131,7 +131,7 @@ html {
         width: 100%;
     }
 
-/* Scrollbar hide para eventos */
+/* Scrollbar hide para events */
     .scrollbar-hide::-webkit-scrollbar {
         display: none;
     }
