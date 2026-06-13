@@ -12,7 +12,9 @@ class EventosController extends Controller
      */
     public function index()
     {
-        //
+        $eventos = Evento::all();
+
+        return response()->json([$eventos]);
     }
 
     /**
@@ -36,6 +38,11 @@ class EventosController extends Controller
         ]);
 
         $eventos = Evento::create($validated);
+
+        return response()->json([
+            'message' => 'Evento criado com sucesso!',
+            'data'    => $eventos
+        ], 201);
     }
 
     /**

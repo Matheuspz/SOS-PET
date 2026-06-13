@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('marcadores', function (Blueprint $table) {
             $table->id();
             $table->string('titulo', 100);
+            $table->text('descricao')->nullable();
+
             $table->decimal('latitude', 10, 8);
             $table->decimal('longitude', 11, 8);
-            $table->enum('tipo', ['doacao', 'hospital', 'evento'])->default('evento');
+
+            $table->json('properties')->nullable(); // dados extras (ícone, cor, etc.)
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

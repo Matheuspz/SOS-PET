@@ -12,7 +12,28 @@ class MarcadoresController extends Controller
      */
     public function index()
     {
-        //
+        $marcadores = Marcador::all();
+
+        $geojson = [
+            'type' => 'FeatureCollection',
+            'features' => $marcadores->map(function ($marcador) {
+                return [
+                    'type' => 'Feature',
+                    'geometry' => [
+                        'type' => 'Point',
+                        'coordinates' => [$marcador->longitude, $marcador->latitude] // lng primeiro!
+                    ],
+                    'properties' => [
+                        'id'          => $marcador->id,
+                        'title'       => $marcador->titulo,
+                        'description' => $marcador->descricao,
+                        ...($marcador->properties ?? []),
+                    ]
+                ];
+            })
+        ];
+
+        return response()->json($geojson);
     }
 
     /**
@@ -29,13 +50,17 @@ class MarcadoresController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'titulo' => 'required|string|max:100',
-            'latitude' => 'required|numeric:|decimal:10,8',
-            'longitude' => 'required|numeric:|decimal:11,8',
-            'tipo' => 'required|in:doacao,hospital,evento',
+            'titulo'       => 'required|string|max:255',
+            'descricao' => 'nullable|string',
+            'latitude'    => 'required|numeric|between:-90,90',
+            'longitude'   => 'required|numeric|between:-180,180',
+            'properties'  => 'nullable|array',
         ]);
 
         $marcador = Marcador::create($validated);
+
+        return redirect()->route('admin.login')
+            ->with('success', 'Marcador criado com sucesso!');
     }
 
     /**
@@ -60,10 +85,11 @@ class MarcadoresController extends Controller
     public function update(Request $request, Marcador $marcadores)
     {
         $validated = $request->validate([
-            'titulo' => 'required|string|max:100',
-            'latitude' => 'required|numeric:|decimal:10,8',
-            'longitude' => 'required|numeric:|decimal:11,8',
-            'tipo' => 'required|in:doacao,hospital,evento',
+            'titulo'       => 'required|string|max:255',
+            'descricao' => 'nullable|string',
+            'latitude'    => 'required|numeric|between:-90,90',
+            'longitude'   => 'required|numeric|between:-180,180',
+            'properties'  => 'nullable|array',
         ]);
 
         $marcadores->update($validated);

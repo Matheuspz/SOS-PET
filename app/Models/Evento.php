@@ -9,5 +9,5 @@ use Illuminate\Database\Eloquent\Model;
 #[Fillable(['titulo', 'data', 'hora', 'descricao'])]
 class Evento extends Model
 {
-
+    protected $table = 'eventos';
 }
