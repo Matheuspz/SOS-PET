@@ -23,7 +23,7 @@ class AdminLoginController extends Controller
         if (auth()->attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('home'/*'admin.dashboard'*/))->with('success', 'Você está logado');
+            return redirect()->intended(route('admin.dashboard'))->with('success', 'Você está logado');
         }
 
         return back()
