@@ -12,7 +12,9 @@ class DicasController extends Controller
      */
     public function index()
     {
-        //
+        $eventos = Dica::all();
+
+        return response()->json([$eventos]);
     }
 
     /**
@@ -31,10 +33,15 @@ class DicasController extends Controller
         $validated = $request->validate([
             'titulo' => 'required|max:100',
             'descricao' => 'required|max:255',
-            'tipo' => 'required',
+            'tipo' => 'required|in:cao,gato',
         ]);
 
         $dicas = Dica::create($validated);
+
+        return response()->json([
+            'message' => 'Dica criada com sucesso!',
+            'data'    => $dicas
+        ], 201);
     }
 
     /**
