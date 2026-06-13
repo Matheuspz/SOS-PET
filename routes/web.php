@@ -20,7 +20,7 @@ Route::get('/admin', [AdminLoginController::class, 'index'])
 Route::post('/admin', [AdminLoginController::class, 'login'])
     ->name('admin.login');
 
-//Route::middleware('auth:admin')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
         ->name('admin.dashboard');
     Route::post('/admin/logout', [AdminLogoutController::class])
@@ -62,4 +62,4 @@ Route::post('/admin', [AdminLoginController::class, 'login'])
             ->name("admin.marcadores.destroy");
     });
 
-//});
+});
