@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dica;
+use App\Models\Evento;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,9 +18,13 @@ class HomeController extends Controller
         return view('home', ['dicas' => $dicas]);
     }
 
-    public function events()
+    public function eventos()
     {
-        return view('events');
+        $eventos = Evento::orderBy('data')
+                        ->orderBy('hora')
+                        ->get();
+
+        return view('events', compact('eventos'));
     }
 
 }

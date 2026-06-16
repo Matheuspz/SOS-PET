@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
-Route::get('/events', [HomeController::class, 'events'])
-    ->name('events');
+Route::get('/eventos', [HomeController::class, 'eventos'])
+    ->name('eventos');
 
 Route::get('/admin', [AdminLoginController::class, 'index'])
     ->name('admin.login');
