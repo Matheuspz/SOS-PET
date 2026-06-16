@@ -50,17 +50,32 @@ class MarcadoresController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'titulo'       => 'required|string|max:255',
-            'descricao' => 'nullable|string',
+            'titulo'      => 'required|string|max:255',
+            'descricao'   => 'nullable|string',
             'latitude'    => 'required|numeric|between:-90,90',
             'longitude'   => 'required|numeric|between:-180,180',
-            'properties'  => 'nullable|array',
+            'tipo'        => 'required|in:doacao,hospital,evento',
         ]);
+
+        $properties = match($validated['tipo']) {
+            'doacao'   => ['cor' => '#FF8C00', 'label' => 'Doação'],      // Laranja
+            'hospital' => ['cor' => '#1E90FF', 'label' => 'Hospital'],    // Azul
+            'evento'   => ['cor' => '#DC143C', 'label' => 'Evento'],      // Vermelho
+            default    => ['cor' => '#6B7280', 'label' => 'Outro'],
+        };
+
+        $validated['properties'] = $properties;
 
         $marcador = Marcador::create($validated);
 
-        return redirect()->route('admin.login')
-            ->with('success', 'Marcador criado com sucesso!');
+        return redirect()->route('admin.dashboard')->with('success', 'Marcador cadastrado com sucesso!');
+        /**
+         * Para teste com resposta em formato Json
+         */
+//        return redirect()->json([
+//            'message' => 'Marcador cadastrado com sucesso!',
+//            'data' => $marcador
+//        ]);
     }
 
     /**
@@ -93,6 +108,8 @@ class MarcadoresController extends Controller
         ]);
 
         $marcadores->update($validated);
+
+        return response()->redirectToRoute('admin.dashboard')->with('status', 'Marcador atualizado com sucesso!');
     }
 
     /**
@@ -101,5 +118,7 @@ class MarcadoresController extends Controller
     public function destroy(Marcador $marcadores)
     {
         $marcadores->delete();
+
+        return response()->redirectToRoute('admin.dashboard')->with('status', 'Marcador removido com sucesso!');
     }
 }

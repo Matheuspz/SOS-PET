@@ -1,13 +1,5 @@
 // public/js/app.js
 
-// Torna as funções globais para onclick funcionar
-window.previousTip = previousTip;
-window.nextTip = nextTip;
-window.previousEvent = previousEvent;
-window.nextEvent = nextEvent;
-window.markOnMap = markOnMap;
-window.scrollEvents = scrollEvents;
-
 // Mobile Menu Toggle
 const mobileBtn = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
@@ -28,7 +20,6 @@ if (mobileBtn && mobileMenu) {
 
 /* ==================== LEAFLET MAP ==================== */
 let map;
-let markers = [];
 
 function initMap() {
     if (map) map.remove();
@@ -44,136 +35,151 @@ function initMap() {
     }).addTo(map);
 
     setTimeout(() => map.invalidateSize(), 800);
+
+    loadMarkers();   // ← Carrega os marcadores do banco
 }
 
 function loadMarkers() {
-    fetch('/api/markers')
+    fetch('/api/marcadores')
         .then(response => response.json())
-        .then(data => data.forEach(marker => addMarker(marker)))
-        .catch(err => console.error(err));
+        .then(data => {
+            if (data.type === 'FeatureCollection') {
+                data.features.forEach(feature => {
+                    addColoredMarker(feature);
+                });
+            }
+        })
+        .catch(err => console.error('Erro ao carregar marcadores:', err));
 }
 
-function addMarker(markerData) {
-    const icons = { donation: '🟠', hospital: '🔵', event: '🔴' };
-    const customIcon = L.divIcon({
-        html: `<div style="font-size: 2.5rem;">${icons[markerData.type] || '🔵'}</div>`,
-        iconSize: [50, 50],
-        className: 'custom-marker'
+function addColoredMarker(feature) {
+    const props = feature.properties;
+    const coords = feature.geometry.coordinates; // [lng, lat]
+
+    // Cor do pin
+    const color = props.cor || '#6B7280';
+
+    // Criar ícone colorido simples
+    const coloredIcon = L.divIcon({
+        className: 'custom-pin',
+        html: `
+            <div style="
+                background-color: ${color};
+                width: 28px;
+                height: 28px;
+                border-radius: 50% 50% 50% 0;
+                border: 3px solid white;
+                box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+                transform: rotate(-45deg);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+            ">
+            </div>
+        `,
+        iconSize: [28, 38],
+        iconAnchor: [14, 38],
+        popupAnchor: [0, -35]
     });
 
-    L.marker([markerData.latitude, markerData.longitude], { icon: customIcon })
+    L.marker([coords[1], coords[0]], { icon: coloredIcon })
         .addTo(map)
-        .bindPopup(`<div class="text-center"><strong>${markerData.title}</strong><br><small>${markerData.description}</small></div>`);
+        .bindPopup(`
+            <strong style="color: ${color}">${props.label || props.title}</strong><br>
+            ${props.description || ''}
+        `);
 }
 
-/* ==================== TIPS ==================== */
-let allTips = [];
-let filteredTips = [];
-let currentTipIndex = 0;
+/* ==================== TIPS CAROUSEL + FILTRO ==================== */
+let currentTip = 0;
+let visibleSlides = [];
 
-function loadTips() {
-    fetch('/api/tips')
-        .then(res => res.json())
-        .then(data => {
-            allTips = data;
-            filterTips('dog');
-        })
-        .catch(err => console.error(err));
+function initTipsCarousel() {
+    const allSlides = document.querySelectorAll('.tip-slide');
+    if (allSlides.length === 0) return;
+
+    window.showTip = function(index) {
+        visibleSlides.forEach((slide, i) => {
+            slide.style.opacity = (i === index) ? '1' : '0';
+            slide.style.pointerEvents = (i === index) ? 'auto' : 'none';
+        });
+        currentTip = index;
+        updateIndicators();
+    };
+
+    window.nextTip = function() {
+        if (visibleSlides.length === 0) return;
+        let next = (currentTip + 1) % visibleSlides.length;
+        showTip(next);
+    };
+
+    window.prevTip = function() {
+        if (visibleSlides.length === 0) return;
+        let prev = (currentTip - 1 + visibleSlides.length) % visibleSlides.length;
+        showTip(prev);
+    };
+
+    window.goToTip = function(index) {
+        showTip(index);
+    };
+
+    // Inicializa mostrando todas
+    filterTips('all');
 }
 
-function filterTips(type) {
-    filteredTips = allTips.filter(tip => tip.type === type);
-    currentTipIndex = 0;
-    displayCurrentTip();
+function filterTips(tipo) {
+    const allSlides = document.querySelectorAll('.tip-slide');
+    visibleSlides = [];
+
+    allSlides.forEach(slide => {
+        if (tipo === 'all' || slide.dataset.tipo === tipo) {
+            slide.style.display = 'flex';
+            visibleSlides.push(slide);
+        } else {
+            slide.style.display = 'none';
+        }
+    });
+
+    // Recria os indicadores
+    createIndicators();
+
+    // Mostra o primeiro card do filtro
+    if (visibleSlides.length > 0) {
+        currentTip = 0;
+        showTip(0);
+    }
 }
 
-function displayCurrentTip() {
-    if (filteredTips.length === 0) return;
-    document.getElementById('tipTitle').textContent = filteredTips[currentTipIndex].title;
-    document.getElementById('tipText').textContent = filteredTips[currentTipIndex].description;
+function createIndicators() {
+    const container = document.getElementById('tip-indicators');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    visibleSlides.forEach((_, index) => {
+        const btn = document.createElement('button');
+        btn.className = `w-4 h-4 rounded-full transition-all ${index === 0 ? 'bg-[#72AE1D] scale-125' : 'bg-gray-300'}`;
+        btn.onclick = () => goToTip(index);
+        container.appendChild(btn);
+    });
 }
 
-function nextTip() {
-    if (filteredTips.length === 0) return;
-    currentTipIndex = (currentTipIndex + 1) % filteredTips.length;
-    displayCurrentTip();
-}
-
-function previousTip() {
-    if (filteredTips.length === 0) return;
-    currentTipIndex = (currentTipIndex - 1 + filteredTips.length) % filteredTips.length;
-    displayCurrentTip();
-}
-
-/* ==================== EVENTS ==================== */
-let allEvents = [];
-let currentEventIndex = 0;
-
-function loadEvents() {
-    fetch('/api/events')
-        .then(res => res.json())
-        .then(events => {
-            allEvents = events;
-
-            // Desktop
-            const desktopContainer = document.getElementById('eventsContainer');
-            desktopContainer.innerHTML = '';
-            events.forEach(event => {
-                desktopContainer.innerHTML += createEventCard(event);
-            });
-
-            // Mobile
-            renderCurrentEvent();
-        })
-        .catch(err => console.error(err));
-}
-
-function createEventCard(event) {
-    return `
-        <div class="event-card">
-            <img src="${event.image}" alt="${event.title}" class="img-fluid rounded mb-3 w-full" style="height: 180px; object-fit: cover;">
-            <h6 class="fw-bold">${event.date}</h6>
-            <button class="btn btn-success btn-sm mt-2 mb-3" onclick="markOnMap(${event.latitude || 0}, ${event.longitude || 0})">
-                Marcar no mapa
-            </button>
-            <p class="mb-0">${event.description}</p>
-        </div>
-    `;
-}
-
-function renderCurrentEvent() {
-    const container = document.getElementById('eventsContainerMobile');
-    if (allEvents.length === 0) return;
-    container.innerHTML = createEventCard(allEvents[currentEventIndex]);
-}
-
-function nextEvent() {
-    if (allEvents.length === 0) return;
-    currentEventIndex = (currentEventIndex + 1) % allEvents.length;
-    renderCurrentEvent();
-}
-
-function previousEvent() {
-    if (allEvents.length === 0) return;
-    currentEventIndex = (currentEventIndex - 1 + allEvents.length) % allEvents.length;
-    renderCurrentEvent();
-}
-
-function markOnMap(lat, lng) {
-    if (map) map.flyTo([lat, lng], 15, { duration: 2 });
-}
-
-function scrollEvents(direction) {
-    const container = document.getElementById('eventsContainer');
-    const scrollAmount = 380;
-    container.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+function updateIndicators() {
+    const indicators = document.querySelectorAll('#tip-indicators button');
+    indicators.forEach((ind, i) => {
+        ind.classList.toggle('bg-[#72AE1D]', i === currentTip);
+        ind.classList.toggle('bg-gray-300', i !== currentTip);
+        ind.classList.toggle('scale-125', i === currentTip);
+    });
 }
 
 /* ==================== INIT ==================== */
 document.addEventListener('DOMContentLoaded', function() {
     initMap();
-    loadTips();
-    loadEvents();
+    loadMarkers();
+
+    initTipsCarousel();   // Inicializa carrossel + filtro
 
     const petFilter = document.getElementById('petFilter');
     if (petFilter) {

@@ -17,12 +17,12 @@
         </div>
     </section>
 
-    <!-- Map Section -->
-    <section id="locais" class="py-12 bg-gray-100 pt-24 md:pt-28">  <!-- Aumentado -->
+    <!-- Mapa Section -->
+    <section id="locais" class="py-12 bg-gray-100 pt-24 md:pt-28">
         <div class="container mx-auto px-4">
-            <!-- Título -->
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-4xl font-bold">Locais</h2>
+
+            <div class="flex justify-center items-center mb-8">
+                <h2 class="text-4xl font-bold text-center">Locais</h2>
             </div>
 
             <div class="flex flex-col lg:flex-row gap-8">
@@ -52,8 +52,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Botão Próximos Evento -->
-            <div class="py-16 text-center" >
+
+            <!-- Eventos -->
+            <div class="py-16 text-center">
                 <a href="{{ route('events') }}"
                    class="inline-flex items-center gap-4 bg-[#72AE1D] hover:bg-[#7acc44] text-white text-2xl font-bold px-12 py-6 rounded-3xl transition-all hover:scale-105 shadow-lg">
                     <span>Próximos Eventos</span>
@@ -64,100 +65,72 @@
     </section>
 
     <!-- Tips Section -->
-    <section class="tips-section py-20">
+    <section class="tips-section py-24 bg-white">
         <div class="container mx-auto px-4">
             <h2 class="text-center text-4xl font-bold mb-10 text-black">Dicas de Cuidado</h2>
 
-            <div class="flex justify-center mb-8">
+            <!-- Filtro -->
+            <div class="flex justify-center mb-10">
                 <div class="w-full max-w-xs">
-                    <select id="petFilter" class="form-select w-full py-3 px-5 rounded-2xl text-lg border-2 border-gray-700 focus:border-[#72AE1D]">
-                        <option value="dog">Cachorro</option>
-                        <option value="cat">Gato</option>
+                    <select id="petFilter" onchange="filterTips(this.value)"
+                            class="form-select w-full py-3 px-5 rounded-2xl text-lg border-2 border-gray-700 focus:border-[#72AE1D]">
+                        <option value="all">Todas as Dicas</option>
+                        <option value="cao">🐶 Apenas para Cachorros</option>
+                        <option value="gato">🐱 Apenas para Gatos</option>
                     </select>
                 </div>
             </div>
 
             <div class="flex flex-col items-center">
-                <!-- Desktop + Tablet: setas ao lado -->
-                <div class="hidden md:flex justify-center items-center gap-6 w-full max-w-[800px]">
-                    <button onclick="previousTip()" class="btn-arrow text-5xl text-gray-700 hover:text-[#72AE1D]">
+
+                <!-- Container do Carrossel -->
+                <div class="relative w-full max-w-2xl mx-auto" style="height: 380px;">
+                    @forelse($dicas as $index => $dica)
+                        <div class="tip-slide absolute inset-0 transition-all duration-500 flex items-center justify-center {{ $index === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none' }}"
+                             data-index="{{ $index }}" data-tipo="{{ $dica->tipo }}">
+
+                            <div class="tip-card bg-white p-10 md:p-14 rounded-3xl shadow-2xl text-center max-w-lg w-full mx-auto">
+                                <div class="flex justify-center mb-6">
+                                <span class="text-7xl">
+                                    {{ $dica->tipo === 'cao' ? '🐶' : '🐱' }}
+                                </span>
+                                </div>
+                                <h4 class="text-[#72AE1D] text-3xl font-bold mb-6 leading-tight">{{ $dica->titulo }}</h4>
+                                <p class="text-gray-700 text-lg leading-relaxed">{{ $dica->descricao }}</p>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="text-center py-20">
+                            <p class="text-gray-500 text-xl">Nenhuma dica cadastrada ainda.</p>
+                        </div>
+                    @endforelse
+                </div>
+
+                <!-- Setas de Navegação -->
+                <div class="flex items-center gap-12 mt-10">
+                    <button onclick="prevTip()"
+                            class="btn-arrow text-6xl text-gray-400 hover:text-[#72AE1D] transition-colors">
                         <i class="bi bi-arrow-left-circle-fill"></i>
                     </button>
-
-                    <div class="tip-card flex-1">
-                        <h4 id="tipTitle" class="text-[#72AE1D] text-3xl font-bold mb-4">Carregando...</h4>
-                        <p id="tipText" class="text-gray-700 text-lg leading-relaxed">Dicas disponíveis para o tipo de animal selecionado.</p>
-                    </div>
-
-                    <button onclick="nextTip()" class="btn-arrow text-5xl text-gray-700 hover:text-[#72AE1D]">
+                    <button onclick="nextTip()"
+                            class="btn-arrow text-6xl text-gray-400 hover:text-[#72AE1D] transition-colors">
                         <i class="bi bi-arrow-right-circle-fill"></i>
                     </button>
                 </div>
 
-                <!-- Mobile: Card centralizado + setas embaixo -->
-                <div class="md:hidden w-full max-w-md">
-                    <div class="tip-card">
-                        <h4 id="tipTitle" class="text-[#72AE1D] text-3xl font-bold mb-4">Carregando...</h4>
-                        <p id="tipText" class="text-gray-700 text-lg leading-relaxed">Dicas disponíveis para o tipo de animal selecionado.</p>
-                    </div>
-
-                    <div class="flex justify-center gap-8 mt-6">
-                        <button onclick="previousTip()" class="btn-arrow text-4xl text-gray-700 hover:text-[#72AE1D]">
-                            <i class="bi bi-arrow-left-circle-fill"></i>
+                <!-- Indicadores -->
+                <div id="tip-indicators" class="flex gap-3 mt-10">
+                    @foreach($dicas as $index => $dica)
+                        <button onclick="goToTip({{ $index }})"
+                                class="w-4 h-4 rounded-full transition-all {{ $index === 0 ? 'bg-[#72AE1D] scale-125' : 'bg-gray-300' }}">
                         </button>
-                        <button onclick="nextTip()" class="btn-arrow text-4xl text-gray-700 hover:text-[#72AE1D]">
-                            <i class="bi bi-arrow-right-circle-fill"></i>
-                        </button>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contato" class="py-20 bg-gradient-to-b from-[#59e0d4] to-[#dceb45]">
-        <div class="container mx-auto px-4">
-            <div class="contact-box mx-auto max-w-2xl p-10 md:p-12">
-                <h2 class="text-center text-4xl font-bold mb-10 text-white drop-shadow-sm">
-                    Formulário para contato
-                </h2>
-                <form id="contactForm" class="space-y-6">
-                    @csrf
-                    <div>
-                        <input
-                            type="text"
-                            name="name"
-                            class="form-input w-full px-6 py-4 rounded-2xl text-lg focus:outline-none focus:ring-4 focus:ring-white/50"
-                            placeholder="Nome"
-                            required>
-                    </div>
-                    <div>
-                        <input
-                            type="email"
-                            name="email"
-                            class="form-input w-full px-6 py-4 rounded-2xl text-lg focus:outline-none focus:ring-4 focus:ring-white/50"
-                            placeholder="E-mail"
-                            required>
-                    </div>
-                    <div>
-                    <textarea
-                        name="message"
-                        rows="6"
-                        class="form-input w-full px-6 py-4 rounded-3xl text-lg resize-y focus:outline-none focus:ring-4 focus:ring-white/50"
-                        placeholder="Mensagem"
-                        required></textarea>
-                    </div>
-                    <button
-                        type="submit"
-                        class="w-full bg-[#1e8a2e] hover:bg-[#2aa13a] text-white font-bold py-5 text-xl rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl">
-                        ENVIAR
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
+    <!-- Sobre Nós Section -->
     <section id="sobre" class="py-20 bg-gray-100">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -185,4 +158,5 @@
 @section('scripts')
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+
 @endsection

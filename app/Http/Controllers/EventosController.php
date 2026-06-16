@@ -39,10 +39,14 @@ class EventosController extends Controller
 
         $eventos = Evento::create($validated);
 
-        return response()->json([
-            'message' => 'Evento criado com sucesso!',
-            'data'    => $eventos
-        ], 201);
+        return response()->redirectToRoute('admin.dashboard')->with('status', 'Evento cadastrado com sucesso!');
+        /**
+         * Para teste com resposta em formato Json
+         */
+//        return response()->json([
+//            'message' => 'Evento criado com sucesso!',
+//            'data'    => $eventos
+//        ], 201);
     }
 
     /**
@@ -74,6 +78,8 @@ class EventosController extends Controller
         ]);
 
         $eventos->update($validated);
+
+        return response()->redirectToRoute('admin.dashboard')->with('status', 'Evento atualizado com sucesso!');
     }
 
     /**
@@ -82,5 +88,7 @@ class EventosController extends Controller
     public function destroy(Evento $eventos)
     {
         $eventos->delete();
+
+        return response()->redirectToRoute('admin.dashboard')->with('status', 'Evento removido com sucesso!');
     }
 }

@@ -11,7 +11,7 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Navbar Styles */
+/* Navbar */
     nav {
         z-index: 9999 !important;
         background-color: white;
@@ -35,7 +35,7 @@ html {
         box-shadow: 0 8px 15px rgba(114, 174, 29, 0.3);
     }
 
-/* Hero Section - Melhor centralização */
+/* Hero Section */
     .hero-section {
         height: 520px;
         display: flex;
@@ -80,7 +80,7 @@ html {
         color: #72AE1D;
     }
 
-    /* Mobile - Setas menores e centralizadas embaixo */
+    /* Responsivo */
     @media (max-width: 768px) {
         .btn-arrow {
             font-size: 2.8rem;
@@ -92,49 +92,6 @@ html {
         }
     }
 
-/* Contact Form - Estilo conforme a imagem */
-    .contact-box {
-        background: linear-gradient(145deg, #7cc95a, #5fa13f);
-        border-radius: 28px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-        color: white;
-    }
-
-    .form-input {
-        background: white;
-        color: #333;
-        border: none;
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08);
-    }
-
-    .form-input::placeholder {
-        color: #888;
-    }
-
-    /* Hover no botão */
-    .contact-box button:hover {
-        transform: translateY(-3px);
-    }
-
-/* Events Cards */
-    .event-card {
-        background: #c8ef7f;
-        padding: 1.5rem;
-        border-radius: 16px;
-        min-width: 320px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        flex-shrink: 0;
-        scroll-snap-align: start;
-    }
-    /* Melhorias para Evento no Mobile */
-    #eventsContainerMobile .event-card {
-        width: 100%;
-    }
-
-/* Scrollbar hide para events */
-    .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-    }
 
 @tailwind utilities;
 
@@ -149,7 +106,7 @@ html {
     }
 }
 
-/* Melhorias visuais */
+
     .event-card {
         transition: transform 0.3s;
     }
@@ -162,12 +119,12 @@ html {
         border-radius: 24px;
     }
 
-/* Garante que o Tailwind não quebre o Leaflet */
+
     .leaflet-control-attribution {
         font-size: 10px;
     }
 
-/* Mobile adjustments */
+/* Responsivo */
     #mobile-menu .nav-btn {
         padding: 16px;
         border-radius: 12px;
@@ -184,47 +141,62 @@ html {
         }
     }
 
-    /* Mapa + Seção Locais */
+/* MAPA + SEÇÃO LOCAIS */
+#locais {
+    padding-top: 7rem !important;
+}
+
+#map {
+    height: 650px;           /* Reduzido de 650px */
+    width: 100%;
+    max-width: 1100px;       /* Centraliza o mapa */
+    margin: 0 auto;          /* Centraliza */
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 1;
+}
+
+/* Responsivo - Mapa menor no celular */
+@media (max-width: 768px) {
     #locais {
-        padding-top: 7rem !important;   /* Mais espaço */
+        padding-top: 5.5rem !important;
     }
-
     #map {
-        height: 650px;
-        width: 100%;
-        border-radius: 24px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        position: relative;
-        z-index: 1;
+        height: 360px;
+        max-width: 100%;
     }
+}
 
-    /* Responsivo */
-    @media (max-width: 768px) {
-        #locais {
-            padding-top: 5.5rem !important;
-        }
-        #map {
-            height: 420px;
-        }
-    }
+/* LEGENDA  */
+.legend-box {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    max-width: 280px;
+    margin: 0 auto;
+}
 
-/* Legenda ao lado do mapa */
+.legend-box h5 {
+    color: #72AE1D;
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+}
+
+.legend-box .space-y-5 {
+    space-y: 1.1rem;
+}
+
+.legend-box span {
+    font-size: 1.1rem;
+}
+
+/* Ajuste responsivo da legenda */
+@media (max-width: 1024px) {
     .legend-box {
-        background: white;
-        padding: 2rem;
-        border-radius: 24px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        position: static;
+        max-width: 100%;
     }
-
-    .legend-box h5 {
-        color: #72AE1D;
-        font-size: 1.5rem;
-    }
-
-    /* Ajuste responsivo */
-    @media (max-width: 1024px) {
-        .legend-box {
-            position: static;
-        }
-    }
+}
 
