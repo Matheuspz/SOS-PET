@@ -86,8 +86,24 @@ function addColoredMarker(feature) {
     L.marker([coords[1], coords[0]], { icon: coloredIcon })
         .addTo(map)
         .bindPopup(`
-            <strong style="color: ${color}">${props.label || props.title}</strong><br>
-            ${props.description || ''}
+            <div>
+                <h3 style="
+                    color:${color};
+                    font-weight:bold;
+                    font-size:16px;
+                    margin-bottom:4px;
+                ">
+                    ${props.title}
+                </h3>
+
+                <small>
+                    ${props.label}
+                </small>
+
+                <p style="margin-top:8px">
+                    ${props.description || ''}
+                </p>
+            </div>
         `);
 }
 
