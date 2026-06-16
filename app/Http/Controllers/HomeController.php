@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dica;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,7 +12,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $dicas = Dica::all();
+
+        return view('home', ['dicas' => $dicas]);
     }
 
     public function events()

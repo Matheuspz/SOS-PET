@@ -12,9 +12,9 @@ class DicasController extends Controller
      */
     public function index()
     {
-        $eventos = Dica::all();
+        $dicas = Dica::all();
 
-        return response()->json([$eventos]);
+        return response()->json([$dicas]);
     }
 
     /**
@@ -38,10 +38,14 @@ class DicasController extends Controller
 
         $dicas = Dica::create($validated);
 
-        return response()->json([
-            'message' => 'Dica criada com sucesso!',
-            'data'    => $dicas
-        ], 201);
+        return response()->redirectToRoute('admin.dashboard')->with('status', 'Dica cadastrada com sucesso!');
+        /**
+         * Para teste com resposta em formato Json
+         */
+//        return response()->json([
+//            'message' => 'Dica criada com sucesso!',
+//            'data'    => $dicas
+//        ], 201);
     }
 
     /**
@@ -57,7 +61,7 @@ class DicasController extends Controller
      */
     public function edit(Dica $dicas)
     {
-        //
+        return 0;
     }
 
     /**
@@ -72,6 +76,8 @@ class DicasController extends Controller
         ]);
 
         $dicas->update($validated);
+
+        return response()->redirectToRoute('admin.dashboard')->with('status', 'Dica atualizada com sucesso!');
     }
 
     /**
@@ -80,5 +86,7 @@ class DicasController extends Controller
     public function destroy(Dica $dicas)
     {
         $dicas->delete();
+
+        return response()->redirectToRoute('admin.dashboard')->with('status', 'Dica removida com sucesso!');
     }
 }

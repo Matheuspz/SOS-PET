@@ -5,23 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable('titulo','descricao','latitude','longitude')]
+#[Fillable('titulo','descricao','latitude','longitude', 'tipo', 'properties')]
 class Marcador extends Model
 {
-    protected $guarded = [];
+    protected $table = 'marcadores';
+
+    protected $fillable = [
+        'titulo',
+        'descricao',
+        'latitude',
+        'longitude',
+        'tipo',
+        'properties',
+    ];
+
     protected $casts = [
-        'latitude'   => 'float',
-        'longitude'  => 'float',
+        'latitude'   => 'decimal:8',
+        'longitude'  => 'decimal:8',
         'properties' => 'array',
     ];
-    public function getLatLngAttribute()
-    {
-        return [
-            'lat' => $this->latitude,
-            'lng' => $this->longitude,
-        ];
-    }
-
-    protected $table = "marcadores";
-
 }
