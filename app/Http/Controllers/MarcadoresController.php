@@ -89,15 +89,15 @@ class MarcadoresController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Marcador $marcadores)
+    public function edit(Marcador $marcador)
     {
-        //
+        return view('admin.marcadores.edit', compact('marcador'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Marcador $marcadores)
+    public function update(Request $request, Marcador $marcador)
     {
         $validated = $request->validate([
             'titulo'       => 'required|string|max:255',
@@ -107,7 +107,7 @@ class MarcadoresController extends Controller
             'properties'  => 'nullable|array',
         ]);
 
-        $marcadores->update($validated);
+        $marcador->update($validated);
 
         return response()->redirectToRoute('admin.dashboard')->with('status', 'Marcador atualizado com sucesso!');
     }
@@ -115,9 +115,9 @@ class MarcadoresController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Marcador $marcadores)
+    public function destroy(Marcador $marcador)
     {
-        $marcadores->delete();
+        $marcador->delete();
 
         return response()->redirectToRoute('admin.dashboard')->with('status', 'Marcador removido com sucesso!');
     }
