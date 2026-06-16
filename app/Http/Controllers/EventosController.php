@@ -60,15 +60,15 @@ class EventosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Evento $eventos)
+    public function edit(Evento $evento)
     {
-
+        return view('admin.eventos.edit', compact('evento'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Evento $eventos)
+    public function update(Request $request, Evento $evento)
     {
         $validated = $request->validate([
             'titulo' => 'required|max:100',
@@ -77,7 +77,7 @@ class EventosController extends Controller
             'descricao' => 'required',
         ]);
 
-        $eventos->update($validated);
+        $evento->update($validated);
 
         return response()->redirectToRoute('admin.dashboard')->with('status', 'Evento atualizado com sucesso!');
     }
@@ -85,9 +85,9 @@ class EventosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Evento $eventos)
+    public function destroy(Evento $evento)
     {
-        $eventos->delete();
+        $evento->delete();
 
         return response()->redirectToRoute('admin.dashboard')->with('status', 'Evento removido com sucesso!');
     }

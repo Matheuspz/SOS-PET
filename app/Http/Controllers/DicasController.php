@@ -59,15 +59,15 @@ class DicasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Dica $dicas)
+    public function edit(Dica $dica)
     {
-        return 0;
+        return view('admin.dicas.edit', compact('dica'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Dica $dicas)
+    public function update(Request $request, Dica $dica)
     {
         $validated = $request->validate([
             'titulo' => 'required|max:100',
@@ -75,7 +75,7 @@ class DicasController extends Controller
             'tipo' => 'required',
         ]);
 
-        $dicas->update($validated);
+        $dica->update($validated);
 
         return response()->redirectToRoute('admin.dashboard')->with('status', 'Dica atualizada com sucesso!');
     }
@@ -83,9 +83,9 @@ class DicasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Dica $dicas)
+    public function destroy(Dica $dica)
     {
-        $dicas->delete();
+        $dica->delete();
 
         return response()->redirectToRoute('admin.dashboard')->with('status', 'Dica removida com sucesso!');
     }

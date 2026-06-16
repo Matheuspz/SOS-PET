@@ -37,12 +37,12 @@ Route::middleware('auth')->group(function () {
         Route::post("/admin/eventos", "store")
             ->name("admin.eventos.store");
 
-        Route::get("/admin/eventos/{id}/edit", "edit")
+        Route::get("/admin/eventos/{evento}/edit", "edit")
             ->name("admin.eventos.edit");
-        Route::put("/admin/eventos/{eventos}", "update")
+        Route::put("/admin/eventos/{evento}", "update")
             ->name("admin.eventos.update");
 
-        Route::delete("/admin/eventos/{eventos}", "destroy")
+        Route::delete("/admin/eventos/{evento}", "destroy")
             ->name("admin.eventos.destroy");
     });
     Route::controller(DicasController::class)->group(function () {
@@ -50,13 +50,13 @@ Route::middleware('auth')->group(function () {
         Route::post("/admin/dicas", "store")
             ->name("admin.dicas.store");
 
-        Route::get("/admin/dicas/{dicas}/edit", "edit")
+        Route::get("/admin/dicas/{dica}/edit", "edit")
             ->name("admin.dicas.edit");
-        Route::put("/admin/dicas/{dicas}", "update")
+        Route::put("/admin/dicas/{dica}", "update")
             ->name("admin.dicas.update");
 
 
-        Route::delete("/admin/dicas/{dicas}", "destroy")
+        Route::delete("/admin/dicas/{dica}", "destroy")
             ->name("admin.dicas.destroy");
     });
     Route::controller(MarcadoresController::class)->group(function () {
@@ -64,12 +64,12 @@ Route::middleware('auth')->group(function () {
         Route::post("/admin/marcadores", "store")
             ->name("admin.marcadores.store");
 
-        Route::get('/admin/marcadores/{marcadores}/edit', 'edit')
+        Route::get('/admin/marcadores/{marcador}/edit', 'edit')
             ->name("admin.marcadores.edit");
-        Route::put("/admin/marcadores/{marcadores}", "update")
+        Route::put("/admin/marcadores/{marcador}", "update")
             ->name("admin.marcadores.update");
 
-        Route::delete("/admin/marcadores/{marcadores}", "destroy")
+        Route::delete("/admin/marcadores/{marcador}", "destroy")
             ->name("admin.marcadores.destroy");
     });
 
