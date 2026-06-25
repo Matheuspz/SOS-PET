@@ -100,11 +100,12 @@ class MarcadoresController extends Controller
     public function update(Request $request, Marcador $marcador)
     {
         $validated = $request->validate([
-            'titulo'       => 'required|string|max:255',
-            'descricao' => 'nullable|string',
-            'latitude'    => 'required|numeric|between:-90,90',
-            'longitude'   => 'required|numeric|between:-180,180',
-            'properties'  => 'nullable|array',
+            'titulo'        => 'required|string|max:255',
+            'descricao'     => 'nullable|string',
+            'latitude'      => 'required|numeric|between:-90,90',
+            'longitude'     => 'required|numeric|between:-180,180',
+            'properties'    => 'nullable|array',
+            'tipo'          => 'required|in:doacao,hospital,evento',
         ]);
 
         $marcador->update($validated);

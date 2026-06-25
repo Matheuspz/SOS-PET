@@ -21,8 +21,8 @@ php artisan tinker --execute="
     \App\Models\User::create([
         'name'=>'Admin', 
         'email'=>'admin@example.com', 
-        'password'=>\Illuminate\Support\Facades\Hash::make('SUA_SENHA_FORTE')
+        'password'=>\Illuminate\Support\Facades\Hash::make('SUA_SENHA')
     ]);
 "
 </pre>
-#### Altere 'name', 'email', 'SUA_SENHA_FORTE' com os dados corretos
+#### Altere 'name', 'email', 'SUA_SENHA' com os dados corretos
