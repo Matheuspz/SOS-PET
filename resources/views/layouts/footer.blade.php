@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="py-16 border-t bg-white">
+<footer class="py-16 border-t bg-white" id="contato">
     <div class="container mx-auto px-4 text-center">
         <a href="{{ route('home') }}" class="inline-flex items-center gap-3 text-2xl font-bold mb-6 hover:text-[#72AE1D] transition-colors">
             <img src="{{ asset('img/logo.jfif') }}" alt="Logo" width="50" height="50" class="rounded-full">
@@ -7,10 +7,10 @@
         </a>
 
         <div class="flex justify-center gap-8 text-3xl mb-6">
-            <a href="#" class="hover:text-[#72AE1D] transition-colors">
+            <a href="https://www.instagram.com/patinhascarentesjoinville/" class="hover:text-[#72AE1D] transition-colors">
                 <i class="bi bi-instagram"></i>
             </a>
-            <a href="#" class="hover:text-[#72AE1D] transition-colors">
+            <a href="https://www.facebook.com/PatinhasCarentesJoinville/?locale=pt_BR" class="hover:text-[#72AE1D] transition-colors">
                 <i class="bi bi-facebook"></i>
             </a>
         </div>

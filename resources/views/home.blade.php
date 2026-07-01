@@ -65,7 +65,7 @@
     </section>
 
     <!-- Dicas Section -->
-    <section class="tips-section py-24 bg-white">
+    <section class="tips-section py-24 bg-white" id="dicas">
         <div class="container mx-auto px-4">
             <h2 class="text-center text-4xl font-bold mb-10 text-black">Dicas de Cuidado</h2>
 

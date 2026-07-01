@@ -21,13 +21,13 @@
                class="nav-btn">
                 Locais
             </a>
+            <a href="#dicas"
+               class="nav-btn">
+                Dicas
+            </a>
             <a href="#sobre"
                class="nav-btn">
                 Sobre
-            </a>
-            <a href="#contato"
-               class="nav-btn">
-                Contato
             </a>
         </div>
 
