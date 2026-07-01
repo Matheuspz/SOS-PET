@@ -33,6 +33,7 @@ Caso ainda não tenha instalado as dependências do projeto:
 
 ```bash
 composer install
+npm install
 ```
 
 Se for necessário utilizar o Faker (ambiente de desenvolvimento ou testes), execute:
@@ -44,6 +45,9 @@ composer require fakerphp/faker --dev
 ---
 
 ## 3. Configure o ambiente
+```bash
+cp .env.example .env
+```
 
 Configure o arquivo `.env` com as informações do servidor, incluindo:
 
