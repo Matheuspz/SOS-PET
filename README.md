@@ -155,4 +155,3 @@ O comando ```php artisan serve``` deve ser utilizado apenas para desenvolvimento
 ---
 
 Desenvolvido para a ONG Patinhas Carentes em colaboração com a Universidade da Região de Joinville (UNIVILLE) para a disciplina de Vivencias de Extenção III
->>>>>>> v1
