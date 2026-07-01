@@ -158,4 +158,11 @@ O comando ```php artisan serve``` deve ser utilizado apenas para desenvolvimento
 
 ---
 
-Desenvolvido para a ONG Patinhas Carentes em colaboração com a Universidade da Região de Joinville (UNIVILLE) para a disciplina de Vivencias de Extenção III
+## Como acessar a página de administrador
+
+Altere a URL do site adicionando /admin no final da URL da página principal
+> Exemplo: http://sospet/admin
+
+---
+
+Desenvolvido para a ONG Patinhas Carentes em colaboração com a Universidade da Região de Joinville (UNIVILLE) para a disciplina de Vivências de Extenção III
