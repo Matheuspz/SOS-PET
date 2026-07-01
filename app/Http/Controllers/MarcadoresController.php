@@ -49,22 +49,7 @@ class MarcadoresController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'titulo'      => 'required|string|max:255',
-            'descricao'   => 'nullable|string',
-            'latitude'    => 'required|numeric|between:-90,90',
-            'longitude'   => 'required|numeric|between:-180,180',
-            'tipo'        => 'required|in:doacao,hospital,evento',
-        ]);
-
-        $properties = match($validated['tipo']) {
-            'doacao'   => ['cor' => '#FF8C00', 'label' => 'Doação'],      // Laranja
-            'hospital' => ['cor' => '#1E90FF', 'label' => 'Hospital'],    // Azul
-            'evento'   => ['cor' => '#DC143C', 'label' => 'Evento'],      // Vermelho
-            default    => ['cor' => '#6B7280', 'label' => 'Outro'],
-        };
-
-        $validated['properties'] = $properties;
+        $validated = $this->Validate($request);
 
         $marcador = Marcador::create($validated);
 
@@ -99,14 +84,7 @@ class MarcadoresController extends Controller
      */
     public function update(Request $request, Marcador $marcador)
     {
-        $validated = $request->validate([
-            'titulo'        => 'required|string|max:255',
-            'descricao'     => 'nullable|string',
-            'latitude'      => 'required|numeric|between:-90,90',
-            'longitude'     => 'required|numeric|between:-180,180',
-            'properties'    => 'nullable|array',
-            'tipo'          => 'required|in:doacao,hospital,evento',
-        ]);
+        $validated = $this->Validate($request);
 
         $marcador->update($validated);
 
@@ -121,5 +99,30 @@ class MarcadoresController extends Controller
         $marcador->delete();
 
         return response()->redirectToRoute('admin.dashboard')->with('status', 'Marcador removido com sucesso!');
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function Validate(Request $request): array
+    {
+        $validated = $request->validate([
+            'titulo' => 'required|string|max:255',
+            'descricao' => 'nullable|string',
+            'latitude' => 'required|numeric|between:-90,90',
+            'longitude' => 'required|numeric|between:-180,180',
+            'tipo' => 'required|in:doacao,hospital,evento',
+        ]);
+
+        $properties = match ($validated['tipo']) {
+            'doacao' => ['cor' => '#FF8C00', 'label' => 'Doação'],      // Laranja
+            'hospital' => ['cor' => '#1E90FF', 'label' => 'Hospital'],    // Azul
+            'evento' => ['cor' => '#DC143C', 'label' => 'Evento'],      // Vermelho
+            default => ['cor' => '#6B7280', 'label' => 'Outro'],
+        };
+
+        $validated['properties'] = $properties;
+        return $validated;
     }
 }
