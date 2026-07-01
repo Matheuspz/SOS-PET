@@ -165,4 +165,4 @@ Altere a URL do site adicionando /admin no final da URL da página principal
 
 ---
 
-Desenvolvido para a ONG Patinhas Carentes em colaboração com a Universidade da Região de Joinville (UNIVILLE) para a disciplina de Vivências de Extenção III
+Desenvolvido para a ONG Patinhas Carentes em colaboração com a Universidade da Região de Joinville (UNIVILLE) para a disciplina de Vivências de Extenção IV
