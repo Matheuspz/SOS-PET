@@ -56,7 +56,7 @@ Configure o arquivo `.env` com as informações do servidor, incluindo:
 * URL da aplicação
 * Demais variáveis necessárias
 
-Caso a chave da aplicação ainda não exista:
+Caso a chave da aplicação não exista:
 
 ```bash
 php artisan key:generate
